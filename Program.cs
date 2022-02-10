@@ -12,6 +12,14 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+// Configure password requirements
+builder.Services.Configure<IdentityOptions>(options => {
+    options.Password.RequiredLength = 4;
+
+    options.User.RequireUniqueEmail = true;
+});
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
