@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mordle.Data;
 
-public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+public class ProdDbContext : IdentityDbContext<IdentityUser>
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    public ProdDbContext(DbContextOptions<DevDbContext> options)
         : base(options)
     {
     }
