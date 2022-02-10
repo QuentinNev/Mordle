@@ -4,14 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mordle.Data;
 
-public class DevDbContext : IdentityDbContext<IdentityUser>
+public class DevDbContext : ProdDbContext
 {
-    protected readonly IConfiguration _configuration;
-    public DevDbContext(DbContextOptions<DevDbContext> options, IConfiguration configuration)
-        : base(options)
-    {
-        _configuration = configuration;
-    }
+    public DevDbContext(DbContextOptions<DevDbContext> options, IConfiguration configuration) : base(options, configuration) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
