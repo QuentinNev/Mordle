@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// D E V
+// Configure DEVELOPMENT context
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<DevDbContext>();
@@ -16,7 +16,7 @@ if (builder.Environment.IsDevelopment())
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
         .AddEntityFrameworkStores<DevDbContext>();
 }
-// P R O D
+// Configure PRODUCTION context
 else
 {
     builder.Services.AddDbContext<ProdDbContext>();
@@ -37,7 +37,7 @@ builder.Services.AddRazorPages();
 
 WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline and migrate the database
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
