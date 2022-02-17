@@ -7,7 +7,7 @@ namespace Mordle.Data;
 public class ProdDbContext : IdentityDbContext<IdentityUser>
 {
     protected readonly IConfiguration _configuration;
-    public ProdDbContext(DbContextOptions<DevDbContext> options, IConfiguration configuration)
+    public ProdDbContext(DbContextOptions<DbContext> options, IConfiguration configuration)
         : base(options)
     {
         _configuration = configuration;

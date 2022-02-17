@@ -6,7 +6,7 @@ namespace Mordle.Data;
 
 public class DevDbContext : ProdDbContext
 {
-    public DevDbContext(DbContextOptions<DevDbContext> options, IConfiguration configuration) : base(options, configuration) { }
+    public DevDbContext(DbContextOptions<DbContext> options, IConfiguration configuration) : base(options, configuration) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
