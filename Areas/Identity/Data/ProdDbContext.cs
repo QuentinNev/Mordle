@@ -20,4 +20,10 @@ public class ProdDbContext : IdentityDbContext<IdentityUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        // connect to sql server database
+        options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+    }
 }
