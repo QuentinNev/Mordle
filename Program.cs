@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Mordle.Data;
 
@@ -6,15 +7,27 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+// D E V
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<DevDbContext>();
+    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores<DevDbContext>();
+}
+// P R O D
+else
+{
+    builder.Services.AddDbContext<ProdDbContext>();
+    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores<ProdDbContext>();
+}
 
 // Configure password requirements
-builder.Services.Configure<IdentityOptions>(options => {
+builder.Services.Configure<IdentityOptions>(options =>
+{
     options.Password.RequiredLength = 4;
 
     options.User.RequireUniqueEmail = true;
@@ -22,18 +35,20 @@ builder.Services.Configure<IdentityOptions>(options => {
 
 builder.Services.AddRazorPages();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    Migrate<DevDbContext>();
 }
 else
 {
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+    Migrate<ProdDbContext>();
 }
 
 app.UseHttpsRedirection();
@@ -47,3 +62,12 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+void Migrate<T>() where T : DbContext
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<T>();
+        dbContext.Database.Migrate();
+    }
+}
