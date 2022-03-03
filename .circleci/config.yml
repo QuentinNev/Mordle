@@ -3,12 +3,25 @@ orbs:
   heroku: circleci/heroku@1.2.6
   windows: circleci/windows@2.4.1
 jobs:
-  build:
+  docker:
     docker:
       - image: mcr.microsoft.com/mssql/server:2019-latest
         auth:
           username: onstandby
           password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - run: echo "this is the build job"
+  test:
+    docker:
+      - image: cimg/<language>:<version TAG>
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    steps:
+      - checkout
+      - run: echo "this is the test job"
+  build:
     description: Build application with Release configuration
     executor:
       name: windows/default
@@ -26,4 +39,6 @@ jobs:
 workflows:
   heroku_deploy:
     jobs:
+      - docker
+      - test
       - heroku/deploy-via-git
