@@ -5,7 +5,7 @@ using Mordle.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Configure DEVELOPMENT context
