@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace Mordle.Data;
 
@@ -20,6 +21,7 @@ public class ProdDbContext : IdentityDbContext<IdentityUser>
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+        string connectionString = _configuration.GetConnectionString("DefaultConnection");
+        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     }
 }
