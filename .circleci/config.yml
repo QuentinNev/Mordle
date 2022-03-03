@@ -14,10 +14,10 @@ jobs:
       - run: echo "this is the build job"
   test:
     docker:
-      - image: cimg/<language>:<version TAG>
+      - image: mcr.microsoft.com/mssql/server:2019-latest
         auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+          username: onstandby
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - run: echo "this is the test job"
