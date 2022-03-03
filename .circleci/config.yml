@@ -4,6 +4,11 @@ orbs:
   windows: circleci/windows@2.4.1
 jobs:
   build:
+  docker:
+    - image: mcr.microsoft.com/mssql/server
+      auth:
+        username: onstandby
+        password: $DOCKERHUB_PASSWORD
     description: Build application with Release configuration
     executor:
       name: windows/default
