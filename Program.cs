@@ -10,6 +10,7 @@ builder.Configuration.EnableSubstitutions();
 
 // Add services to the container
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine("Connection string : " + connectionString);
 
 // Configure DEVELOPMENT context
 if (builder.Environment.IsDevelopment())
