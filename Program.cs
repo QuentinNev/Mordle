@@ -6,7 +6,7 @@ using Mordle.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.EnableSubstitutions();
+builder.Configuration.EnableSubstitutions("%", "%");
 
 // Add services to the container
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
