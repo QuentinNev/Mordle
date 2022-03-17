@@ -1,5 +1,5 @@
 ﻿@page
-@model IndexModel
+@model GameModel
 @{
     ViewData["Title"] = "Mordle";
 }
@@ -7,6 +7,10 @@
 <div class="text-center">
     <h1 class="display-4">Mordle</h1>
     <div>
-        
+        @Model.attempt
+        <form method="post">
+            <input type="text" id="attempt" name="attempt">
+            <input type="submit" value="Submit" asp-page-handler="Submit"/>
+        </form>
     </div>
 </div>
