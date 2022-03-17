@@ -1,3 +1,4 @@
+using ConfigurationSubstitution;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -5,8 +6,11 @@ using Mordle.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.EnableSubstitutions("%", "%");
+
 // Add services to the container
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine("Connection string : " + connectionString);
 
 // Configure DEVELOPMENT context
 if (builder.Environment.IsDevelopment())
@@ -36,7 +40,6 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddRazorPages();
 
 WebApplication app = builder.Build();
-
 // Configure the HTTP request pipeline and migrate the database
 if (app.Environment.IsDevelopment())
 {

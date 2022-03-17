@@ -3,24 +3,7 @@ orbs:
   heroku: circleci/heroku@1.2.6
   windows: circleci/windows@2.4.1
 jobs:
-  docker:
-    docker:
-      - image: circleci/mysql:5-oracle-ram
-        auth:
-          username: onstandby
-          password: $DOCKERHUB_PASSWORD
-    steps:
-      - checkout
-      - run: echo "this is the build job"
-  test:
-    docker:
-      - image: circleci/mysql:5-oracle-ram
-        auth:
-          username: onstandby
-          password: $DOCKERHUB_PASSWORD
-    steps:
-      - checkout
-      - run: echo "this is the test job"
+  
   build:
     description: Build application with Release configuration
     executor:
@@ -39,6 +22,4 @@ jobs:
 workflows:
   heroku_deploy:
     jobs:
-      - docker
-      - test
       - heroku/deploy-via-git
