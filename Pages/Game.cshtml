@@ -6,11 +6,44 @@
 
 <div class="text-center">
     <h1 class="display-4">Mordle</h1>
-    <div>
-        @Model.attempt
+    <div class="tableParent">
+        @if (!(Model.game is null))
+        {
+            <table class="table w-50">
+                <tbody>
+                    @for (int i = 0; i < Model.game.maxAttempt; i++)
+                    {
+                        KeyValuePair<string, Mordle.MordleGame.Guess[]> item;
+                        if (Model.game.guesses.Count > 0 && Model.game.guesses.Count > i)
+                        {
+                            item = Model.game.guesses.ElementAt(i);
+                            <tr>
+                                @for (int l = 0; l < item.Key.Length; l++)
+                                {
+                                    <td class=@item.Value[l].ToString()>@item.Key[l]</td>
+                                }
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                @for (int l = 0; l < Model.game.wordToGuess.Length; l++)
+                                {
+                                    <td class="empty"> </td>
+                                }
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        @if (Model.game is null)
+        {
+            <div>Guess the word!</div>
+        }
+
         <form method="post">
-            <input type="text" id="attempt" name="attempt">
-            <input type="submit" value="Submit" asp-page-handler="Submit"/>
+            <input type="text" id="attempt" name="attempt" autofocus>
         </form>
+        </divY>
     </div>
-</div>
