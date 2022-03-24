@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using System.Text.RegularExpressions;
 
@@ -29,7 +28,7 @@ public class GameModel : PageModel
         _memoryCache.Set(GAME_KEY, game);
     }
 
-    public void OnPost(string attempt)
+    public void OnPost(string attempt = "")
     {
         attempt = attempt.ToUpperInvariant();
         Regex regex = new Regex("^[A-Z]+$");

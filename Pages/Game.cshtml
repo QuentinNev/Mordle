@@ -45,8 +45,9 @@
             <div>Guess the word!</div>
         }
 
-        <form method="post">
-            <input type="text" id="attempt" name="attempt" autofocus>
-        </form>
-        </divY>
+        <!-- Show form only if player can make another guess -->
+        @if (Model.game != null && Model.game.guesses.Count < Model.game.maxAttempt)
+        {
+            <partial name="_GuessForm.cshtml" />
+        }
     </div>
