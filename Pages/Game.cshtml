@@ -5,7 +5,10 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Mordle</h1>
+    @if (Model.error != "")
+    {
+        <h3 class="display-4">@Model.error</h3>
+    }
     <div class="tableParent">
         @if (!(Model.game is null))
         {
