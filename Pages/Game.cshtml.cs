@@ -11,6 +11,7 @@ public class GameModel : PageModel
     private readonly ILogger<IndexModel> _logger;
     public MordleGame game;
     public string error;
+    public string guess { get; set; }
 
     public GameModel(IMemoryCache memoryCache, ILogger<IndexModel> logger)
     {
