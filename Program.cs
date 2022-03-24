@@ -1,6 +1,5 @@
 using ConfigurationSubstitution;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Mordle.Data;
 
@@ -10,7 +9,6 @@ builder.Configuration.EnableSubstitutions("%", "%");
 
 // Add services to the container
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-Console.WriteLine("Connection string : " + connectionString);
 
 // Configure DEVELOPMENT context
 if (builder.Environment.IsDevelopment())

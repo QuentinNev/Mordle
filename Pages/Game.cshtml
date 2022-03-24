@@ -1,0 +1,53 @@
+﻿@page
+@model GameModel
+@{
+    ViewData["Title"] = "Mordle";
+}
+
+<div class="text-center">
+    @if (Model.error != "")
+    {
+        <h3 class="display-4">@Model.error</h3>
+    }
+    <div class="tableParent">
+        @if (!(Model.game is null))
+        {
+            <table class="table w-50">
+                <tbody>
+                    @for (int i = 0; i < Model.game.maxAttempt; i++)
+                    {
+                        KeyValuePair<string, Mordle.MordleGame.Guess[]> item;
+                        if (Model.game.guesses.Count > 0 && Model.game.guesses.Count > i)
+                        {
+                            item = Model.game.guesses.ElementAt(i);
+                            <tr>
+                                @for (int l = 0; l < item.Key.Length; l++)
+                                {
+                                    <td class=@item.Value[l].ToString()>@item.Key[l]</td>
+                                }
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                @for (int l = 0; l < Model.game.wordToGuess.Length; l++)
+                                {
+                                    <td class="empty"> </td>
+                                }
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        @if (Model.game is null)
+        {
+            <div>Guess the word!</div>
+        }
+
+        <!-- Show form only if player can make another guess -->
+        @if (Model.game != null && Model.game.guesses.Count < Model.game.maxAttempt)
+        {
+            <partial name="_GuessForm.cshtml" />
+        }
+    </div>
