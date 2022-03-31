@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mordle.Pages;
 
@@ -11,6 +12,10 @@ public class GameModel : PageModel
     private readonly ILogger<IndexModel> _logger;
     public MordleGame game;
     public string error;
+
+    [Required]
+    [RegularExpression("^[A-Z]+$")]
+    public string attempt { get; set; }
 
     public GameModel(IMemoryCache memoryCache, ILogger<IndexModel> logger)
     {
@@ -30,17 +35,18 @@ public class GameModel : PageModel
 
     public void OnPost(string attempt = "")
     {
-        attempt = attempt.ToUpperInvariant();
+
         Regex regex = new Regex("^[A-Z]+$");
 
-        if (_memoryCache.TryGetValue(GAME_KEY, out game) && game != null)
+        if (attempt != null && _memoryCache.TryGetValue(GAME_KEY, out game) && game != null)
         {
+            attempt = attempt.ToUpperInvariant();
             if (regex.IsMatch(attempt))
             {
                 game.MakeAGuess(attempt);
             }
             else
-                error = "Guess is invalid";
+                error = "Guess is invalid : " + this.attempt;
         }
         else
         {
