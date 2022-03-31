@@ -3,9 +3,19 @@
 
 /// TODO : Make a method to prevent invalid input in game page only
 
+function validate(input, wordlLenght) {
+    var response = checkInput(input, wordlLenght)
 
+    if (response == "success") {
+        return true;
+    }
+    else {
+        alert(response);
+        return false;
+    }
+}
 
-function validateInput(input: string, wordLength: Number) {
+function checkInput(input, wordLength) {
     if (input.length < wordLength) {
         return "Word is not long enough!"
     }

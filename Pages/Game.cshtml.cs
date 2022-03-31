@@ -10,11 +10,11 @@ public class GameModel : PageModel
     const string GAME_KEY = "currentGame";
     private readonly IMemoryCache _memoryCache;
     private readonly ILogger<IndexModel> _logger;
-    public MordleGame game;
+    public MordleGame game = new MordleGame("default", 6);
     public string error;
 
-    [Required]
-    [RegularExpression("^[A-Z]+$")]
+    [Required(ErrorMessage = " "),
+        RegularExpression("^[a-zA-Z]+$", ErrorMessage = "Guess can contain only letters without accent")]
     public string attempt { get; set; }
 
     public GameModel(IMemoryCache memoryCache, ILogger<IndexModel> logger)

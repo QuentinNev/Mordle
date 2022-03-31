@@ -1,5 +1,11 @@
 @model GameModel
 
+<script type="module" src="~/js/validation.js"></script>
+
 <form method="post">
-    <input asp-for="attempt" /><br />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input asp-for="attempt" class="form-control" />
+        <span asp-validation-for="attempt" class="text-danger"></span>
+    </div>
 </form>
