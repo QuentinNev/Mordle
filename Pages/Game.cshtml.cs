@@ -9,7 +9,7 @@ public class GameModel : PageModel
 {
     const string GAME_KEY = "currentGame";
     private readonly IMemoryCache _memoryCache;
-    private readonly ILogger<TrucModel> _logger;
+    private readonly ILogger<IndexModel> _logger;
     public MordleGame game;
     public string error;
 
@@ -17,7 +17,7 @@ public class GameModel : PageModel
     [RegularExpression("^[A-Z]+$")]
     public string attempt { get; set; }
 
-    public GameModel(IMemoryCache memoryCache, ILogger<TrucModel> logger)
+    public GameModel(IMemoryCache memoryCache, ILogger<IndexModel> logger)
     {
         _memoryCache = memoryCache;
         _logger = logger;

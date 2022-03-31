@@ -5,9 +5,9 @@ namespace Mordle.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<TrucModel> _logger;
+    private readonly ILogger<IndexModel> _logger;
 
-    public IndexModel(ILogger<TrucModel> logger)
+    public IndexModel(ILogger<IndexModel> logger)
     {
         _logger = logger;
     }
