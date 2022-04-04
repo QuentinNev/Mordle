@@ -6,6 +6,7 @@ namespace Mordle;
 /// </summary>
 public class MordleGame
 {
+    public readonly Mordle.Data.DevDbContext _context;
     public string wordToGuess { get; set; }
     char[] _targetChars { get; set; }
 
@@ -16,9 +17,9 @@ public class MordleGame
 
     public Dictionary<string, Guess[]> guesses;
 
-    public MordleGame(int maxAttempt)
+    public MordleGame(string wordToGuess, int maxAttempt)
     {
-        string wordToGuess = "Swagman";
+
         this.wordToGuess = wordToGuess = wordToGuess.ToUpperInvariant();
         _targetChars = this.wordToGuess.ToCharArray();
 
