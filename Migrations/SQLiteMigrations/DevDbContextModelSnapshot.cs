@@ -209,6 +209,78 @@ namespace Mordle.Migrations.SQLiteMigrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Mordle.Word", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("word")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Words");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            word = "Bonjour"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            word = "Voiture"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            word = "Raquette"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            word = "Anticonstitutionnellement"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            word = "Repas"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            word = "Escalade"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            word = "Poule"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            word = "Recherche"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            word = "Soigner"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            word = "Trompe"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            word = "Balancer"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)

@@ -1,17 +1,16 @@
-using System.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mordle;
 
 public class Word
 {
-    public string word;
-    public Word(string word)
+    [Key]
+    public int Id { get; set; }
+    public string word { get; set; }
+
+    public Word(int Id, string word)
     {
+        this.Id = Id;
         this.word = word;
-    }
-
-    public void OnModelCreating()
-    {
-
     }
 }
