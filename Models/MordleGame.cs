@@ -4,7 +4,9 @@ namespace Mordle;
 /// <summary>
 /// Represent a game of mordle, with every tries made
 /// </summary>
-public class MordleGame
+
+#region ORM
+public partial class MordleGame
 {
     public bool win { get; set; }
     public bool lose { get; set; }
@@ -21,7 +23,6 @@ public class MordleGame
 
     public MordleGame(string wordToGuess, int maxAttempt)
     {
-
         this.wordToGuess = wordToGuess = wordToGuess.ToUpperInvariant();
         _targetChars = this.wordToGuess.ToCharArray();
 
@@ -29,6 +30,12 @@ public class MordleGame
 
         guesses = new Dictionary<string, Guess[]>();
     }
+}
+#endregion
+
+#region Logic
+public partial class MordleGame
+{
 
     /// <summary>
     /// Compares every character and return an array indicating how letters matched the guess
@@ -80,3 +87,4 @@ public class MordleGame
             lose = true;
     }
 }
+#endregion
