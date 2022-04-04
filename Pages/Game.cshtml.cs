@@ -13,7 +13,6 @@ public class GameModel : PageModel
     private readonly DevDbContext _context;
     private readonly ILogger<IndexModel> _logger;
     public MordleGame game = new MordleGame("default", 6);
-    public string error;
 
     [Required(ErrorMessage = " "),
         MinLength(8, ErrorMessage = "Word is too short!"),
@@ -26,7 +25,6 @@ public class GameModel : PageModel
         _memoryCache = memoryCache;
         _logger = logger;
         _context = context;
-        error = "";
         attempt = "";
     }
 
@@ -61,8 +59,6 @@ public class GameModel : PageModel
                 game.MakeAGuess(attempt);
                 ModelState.Clear();
             }
-            else
-                error = "Guess is invalid : " + this.attempt;
         }
         else
         {

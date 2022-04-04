@@ -6,13 +6,11 @@
 
 @section Scripts {
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_TimeJsPartial.cshtml");}
 }
 
 <div class="text-center">
-    @if (Model.error != "")
-    {
-        <h3 class="display-4">@Model.error</h3>
-    }
+    <partial name="_TimePartial.cshtml" />
 
     @if (Model.game != null)
     {
