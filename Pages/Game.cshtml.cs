@@ -34,20 +34,23 @@ public class GameModel : PageModel
 
     public void OnGet()
     {
-        if (!_memoryCache.TryGetValue(GAME_KEY, out game))
+        if (HttpContext.Request.Query["newGame"].ToString() == "true")
         {
             game = CreateGame(maxAttempt);
             _memoryCache.Set(GAME_KEY, game);
         }
         else
         {
-            Console.WriteLine("game : " + game.wordToGuess);
+            if (!_memoryCache.TryGetValue(GAME_KEY, out game))
+            {
+                game = CreateGame(maxAttempt);
+                _memoryCache.Set(GAME_KEY, game);
+            }
         }
     }
 
     public void OnPost(string attempt = "")
     {
-
         Regex regex = new Regex("^[A-Z]+$");
 
         if (attempt != null && _memoryCache.TryGetValue(GAME_KEY, out game) && game != null)
