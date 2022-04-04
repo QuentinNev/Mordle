@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mordle.Data;
 
@@ -10,9 +11,10 @@ using Mordle.Data;
 namespace Mordle.Migrations.SQLiteMigrations
 {
     [DbContext(typeof(DevDbContext))]
-    partial class DevDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220404135746_AddWordModel")]
+    partial class AddWordModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.2");
@@ -215,9 +217,6 @@ namespace Mordle.Migrations.SQLiteMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("difficulty")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("word")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -230,67 +229,56 @@ namespace Mordle.Migrations.SQLiteMigrations
                         new
                         {
                             Id = 1,
-                            difficulty = 1,
                             word = "PAPILLON"
                         },
                         new
                         {
                             Id = 2,
-                            difficulty = 1,
                             word = "TROUPEAU"
                         },
                         new
                         {
                             Id = 3,
-                            difficulty = 1,
                             word = "ADORABLE"
                         },
                         new
                         {
                             Id = 4,
-                            difficulty = 1,
                             word = "ENTREPOT"
                         },
                         new
                         {
                             Id = 5,
-                            difficulty = 1,
                             word = "GOURMAND"
                         },
                         new
                         {
                             Id = 6,
-                            difficulty = 1,
                             word = "IRONIQUE"
                         },
                         new
                         {
                             Id = 7,
-                            difficulty = 1,
                             word = "LAPEREAU"
                         },
                         new
                         {
                             Id = 8,
-                            difficulty = 1,
                             word = "LOCUTEUR"
                         },
                         new
                         {
                             Id = 9,
-                            difficulty = 1,
                             word = "MARECAGE"
                         },
                         new
                         {
                             Id = 10,
-                            difficulty = 1,
                             word = "NETTOYER"
                         },
                         new
                         {
                             Id = 11,
-                            difficulty = 1,
                             word = "ORNEMENT"
                         });
                 });

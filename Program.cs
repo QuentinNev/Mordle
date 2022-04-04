@@ -1,6 +1,5 @@
 using ConfigurationSubstitution;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Mordle.Data;
 
@@ -10,14 +9,16 @@ builder.Configuration.EnableSubstitutions("%", "%");
 
 // Add services to the container
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-Console.WriteLine("Connection string : " + connectionString);
 
 // Configure DEVELOPMENT context
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<DevDbContext>();
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+    })
         .AddEntityFrameworkStores<DevDbContext>();
 }
 // Configure PRODUCTION context
@@ -29,6 +30,13 @@ else
         .AddEntityFrameworkStores<ProdDbContext>();
 }
 
+// Define Redirection routes
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/Login";
+});
+
 // Configure password requirements
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -37,7 +45,19 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = true;
 });
 
-builder.Services.AddRazorPages();
+// Configure authorization policy
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("LoggedIn", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+    });
+});
+
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizePage("/game", "LoggedIn");
+});
 
 WebApplication app = builder.Build();
 // Configure the HTTP request pipeline and migrate the database

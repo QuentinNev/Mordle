@@ -16,3 +16,34 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table td {
+  border-width: 1px;
+  width: 50px;
+  height: 50px;
+}
+
+.gameEnd {
+  margin: 10px;
+}
+
+.correct {
+  background-color: #17c3b2 !important;
+}
+
+.misplaced {
+  background-color: #ffcb77 !important;
+}
+
+.wrong {
+  background-color: #fe6d73 !important;
+}
+
+.empty {
+  background-color: #fef9ef !important;
+}

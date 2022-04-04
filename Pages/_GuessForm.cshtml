@@ -1,0 +1,9 @@
+@model GameModel
+
+<form autocomplete="off" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input autofocus asp-for="attempt" /><br>
+        <span asp-validation-for="attempt" class="text-danger"></span>
+    </div>
+</form>
