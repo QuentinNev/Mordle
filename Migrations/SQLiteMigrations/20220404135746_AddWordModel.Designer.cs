@@ -11,7 +11,7 @@ using Mordle.Data;
 namespace Mordle.Migrations.SQLiteMigrations
 {
     [DbContext(typeof(DevDbContext))]
-    [Migration("20220404125519_AddWordModel")]
+    [Migration("20220404135746_AddWordModel")]
     partial class AddWordModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,57 +229,57 @@ namespace Mordle.Migrations.SQLiteMigrations
                         new
                         {
                             Id = 1,
-                            word = "Bonjour"
+                            word = "PAPILLON"
                         },
                         new
                         {
                             Id = 2,
-                            word = "Voiture"
+                            word = "TROUPEAU"
                         },
                         new
                         {
                             Id = 3,
-                            word = "Raquette"
+                            word = "ADORABLE"
                         },
                         new
                         {
                             Id = 4,
-                            word = "Anticonstitutionnellement"
+                            word = "ENTREPOT"
                         },
                         new
                         {
                             Id = 5,
-                            word = "Repas"
+                            word = "GOURMAND"
                         },
                         new
                         {
                             Id = 6,
-                            word = "Escalade"
+                            word = "IRONIQUE"
                         },
                         new
                         {
                             Id = 7,
-                            word = "Poule"
+                            word = "LAPEREAU"
                         },
                         new
                         {
                             Id = 8,
-                            word = "Recherche"
+                            word = "LOCUTEUR"
                         },
                         new
                         {
                             Id = 9,
-                            word = "Soigner"
+                            word = "MARECAGE"
                         },
                         new
                         {
                             Id = 10,
-                            word = "Trompe"
+                            word = "NETTOYER"
                         },
                         new
                         {
                             Id = 11,
-                            word = "Balancer"
+                            word = "ORNEMENT"
                         });
                 });
 
