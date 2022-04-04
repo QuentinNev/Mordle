@@ -28,6 +28,10 @@ table td {
   height: 50px;
 }
 
+.gameEnd {
+  margin: 10px;
+}
+
 .correct {
   background-color: #17c3b2 !important;
 }

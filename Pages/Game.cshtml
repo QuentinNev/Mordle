@@ -5,7 +5,7 @@
 }
 
 @section Scripts {
-  @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
 <div class="text-center">
@@ -13,6 +13,19 @@
     {
         <h3 class="display-4">@Model.error</h3>
     }
+
+    @if (Model.game != null)
+    {
+        if (Model.game.win)
+        {
+            <partial name="_Win.cshtml" />
+        }
+        if (Model.game.lose)
+        {
+            <partial name="_Lose.cshtml" />
+        }
+    }
+
     <div class="tableParent">
         @if (!(Model.game is null))
         {
@@ -50,8 +63,11 @@
         }
 
         <!-- Show form only if player can make another guess -->
-        @if (Model.game != null && Model.game.guesses.Count < Model.game.maxAttempt)
+        @if (Model.game != null)
         {
-            <partial name="_GuessForm.cshtml" />
+            @if (!(Model.game.win || Model.game.lose))
+            {
+                <partial name="_GuessForm.cshtml" />
+            }
         }
     </div>

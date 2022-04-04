@@ -6,6 +6,9 @@ namespace Mordle;
 /// </summary>
 public class MordleGame
 {
+    public bool win { get; set; }
+    public bool lose { get; set; }
+    public readonly Mordle.Data.DevDbContext _context;
     public string wordToGuess { get; set; }
     char[] _targetChars { get; set; }
 
@@ -18,7 +21,8 @@ public class MordleGame
 
     public MordleGame(string wordToGuess, int maxAttempt)
     {
-        this.wordToGuess = wordToGuess;
+
+        this.wordToGuess = wordToGuess = wordToGuess.ToUpperInvariant();
         _targetChars = this.wordToGuess.ToCharArray();
 
         this.maxAttempt = maxAttempt;
@@ -61,15 +65,18 @@ public class MordleGame
         return result;
     }
 
-    public bool MakeAGuess(string guess)
+    public void MakeAGuess(string guess)
     {
         // Check if guess match lentgh
         if (guess == null || guess.Length != wordToGuess.Length)
-            return false;
+            return;
 
         if (!guesses.ContainsKey(guess))
             guesses.Add(guess, Compare(guess));
 
-        return (wordToGuess == guess);
+        if (guess == wordToGuess)
+            win = true;
+        else if (guesses.Count >= maxAttempt)
+            lose = true;
     }
 }
