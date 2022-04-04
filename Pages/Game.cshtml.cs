@@ -10,7 +10,7 @@ public class GameModel : PageModel
     const string GAME_KEY = "currentGame";
     private readonly IMemoryCache _memoryCache;
     private readonly ILogger<IndexModel> _logger;
-    public MordleGame game = new MordleGame("default", 6);
+    public MordleGame game = new MordleGame(6);
     public string error;
 
     [Required(ErrorMessage = " "),
@@ -24,13 +24,19 @@ public class GameModel : PageModel
         error = "";
     }
 
-    string wordToFind = "NOEMIE";
     int maxAttempt = 6;
 
     public void OnGet()
     {
-        game = new MordleGame(wordToFind, maxAttempt);
-        _memoryCache.Set(GAME_KEY, game);
+        if (!_memoryCache.TryGetValue(GAME_KEY, out game))
+        {
+            game = new MordleGame(maxAttempt);
+            _memoryCache.Set(GAME_KEY, game);
+        }
+        else
+        {
+            Console.WriteLine("game : " + game.wordToGuess);
+        }
     }
 
     public void OnPost(string attempt = "")
@@ -50,7 +56,7 @@ public class GameModel : PageModel
         }
         else
         {
-            game = new MordleGame(wordToFind, maxAttempt);
+            game = new MordleGame(maxAttempt);
         }
 
         _memoryCache.Set(GAME_KEY, game);

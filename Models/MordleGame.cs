@@ -16,9 +16,10 @@ public class MordleGame
 
     public Dictionary<string, Guess[]> guesses;
 
-    public MordleGame(string wordToGuess, int maxAttempt)
+    public MordleGame(int maxAttempt)
     {
-        this.wordToGuess = wordToGuess;
+        string wordToGuess = "Swagman";
+        this.wordToGuess = wordToGuess = wordToGuess.ToUpperInvariant();
         _targetChars = this.wordToGuess.ToCharArray();
 
         this.maxAttempt = maxAttempt;
