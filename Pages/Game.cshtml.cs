@@ -36,7 +36,7 @@ public class GameModel : PageModel
         MaxLength(8, ErrorMessage = "Word is too long!"),
         RegularExpression("^[a-zA-Z]+$", 
             ErrorMessage = "Guess can contain only letters without accent")]
-    public string attempt { get; set; }
+    public string guess { get; set; }
 
     /// <summary>
     /// Constructor of razor page
@@ -46,10 +46,10 @@ public class GameModel : PageModel
         _memoryCache = memoryCache;
         _logger = logger;
         _context = context;
-        attempt = "";
+        guess = "";
     }
 
-    int maxAttempt = 6;
+    int maxGuesses = 6;
 
     /// <summary>
     /// Called when a GET request is made on route /Game
@@ -59,14 +59,14 @@ public class GameModel : PageModel
     {
         if (HttpContext.Request.Query["newGame"].ToString() == "true")
         {
-            game = CreateGame(maxAttempt);
+            game = CreateGame(maxGuesses);
             _memoryCache.Set(GAME_KEY, game);
         }
         else
         {
             if (!_memoryCache.TryGetValue(GAME_KEY, out game))
             {
-                game = CreateGame(maxAttempt);
+                game = CreateGame(maxGuesses);
                 _memoryCache.Set(GAME_KEY, game);
             }
         }
@@ -75,25 +75,25 @@ public class GameModel : PageModel
     /// <summary>
     /// Called when a POST request is made on route /Game
     /// </summary>
-    /// <param name="attempt">Word player entered which has been validated client side</param>
-    public void OnPost(string attempt = "")
+    /// <param name="guess">Word player entered which has been validated client side</param>
+    public void OnPost(string guess = "")
     {
         Regex regex = new Regex("^[A-Z]+$");
 
-        if (attempt != null && _memoryCache.TryGetValue(GAME_KEY, out game) && game != null)
+        if (guess != null && _memoryCache.TryGetValue(GAME_KEY, out game) && game != null)
         {
-            attempt = attempt.ToUpperInvariant();
-            if (regex.IsMatch(attempt))
+            guess = guess.ToUpperInvariant();
+            if (regex.IsMatch(guess))
             {
-                game.MakeAGuess(attempt);
+                game.MakeAGuess(guess);
 
-                // Clear form fields, else it'll show last attempt
+                // Clear form fields, else it'll show last guess
                 ModelState.Clear();
             }
         }
         else
         {
-            game = CreateGame(maxAttempt);
+            game = CreateGame(maxGuesses);
         }
 
         _memoryCache.Set(GAME_KEY, game);
@@ -102,9 +102,9 @@ public class GameModel : PageModel
     /// <summary>
     /// Starts a new game
     /// </summary>
-    /// <param name="maxAttempt">Maximum words player can try before losing the game</param>
+    /// <param name="maxGuesses">Maximum words player can try before losing the game</param>
     /// <returns></returns>
-    private MordleGame CreateGame(int maxAttempt)
+    private MordleGame CreateGame(int maxGuesses)
     {
         Random rand = new Random();
 
