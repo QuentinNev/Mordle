@@ -15,18 +15,18 @@ public partial class MordleGame
     char[] _targetChars { get; set; }
 
     [DefaultValue(6)]
-    public int maxAttempt { get; set; }
+    public int maxGuesses { get; set; }
 
     public enum Guess { correct, misplaced, wrong }
 
     public Dictionary<string, Guess[]> guesses;
 
-    public MordleGame(string wordToGuess, int maxAttempt)
+    public MordleGame(string wordToGuess, int maxGuesses)
     {
         this.wordToGuess = wordToGuess = wordToGuess.ToUpperInvariant();
         _targetChars = this.wordToGuess.ToCharArray();
 
-        this.maxAttempt = maxAttempt;
+        this.maxGuesses = maxGuesses;
 
         guesses = new Dictionary<string, Guess[]>();
     }
@@ -72,18 +72,24 @@ public partial class MordleGame
         return result;
     }
 
+    /// <summary>
+    /// Checks guess and if game is finished
+    /// </summary>
+    /// <param name="guess"></param>
     public void MakeAGuess(string guess)
     {
         // Check if guess match lentgh
         if (guess == null || guess.Length != wordToGuess.Length)
             return;
 
+        // Unless guess was already made
         if (!guesses.ContainsKey(guess))
             guesses.Add(guess, Compare(guess));
 
+        // Check if player won or lost
         if (guess == wordToGuess)
             win = true;
-        else if (guesses.Count >= maxAttempt)
+        else if (guesses.Count >= maxGuesses)
             lose = true;
     }
 }
