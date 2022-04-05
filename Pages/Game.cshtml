@@ -6,12 +6,9 @@
 
 @section Scripts {
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-@{await Html.RenderPartialAsync("_TimeJsPartial.cshtml");}
 }
 
 <div class="text-center">
-    <partial name="_TimePartial.cshtml" />
-
     @if (Model.game != null)
     {
         if (Model.game.win)
