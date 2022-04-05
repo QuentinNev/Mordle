@@ -26,7 +26,7 @@ else
 {
     builder.Services.AddDbContext<ProdDbContext>();
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
         .AddEntityFrameworkStores<ProdDbContext>();
 }
 
@@ -40,7 +40,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 // Configure password requirements
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    options.Password.RequiredLength = 4;
+    options.Password.RequiredLength = 6;
 
     options.User.RequireUniqueEmail = true;
 });
@@ -54,6 +54,7 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
+// Allow access only to identified users
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizePage("/game", "LoggedIn");
@@ -86,6 +87,7 @@ app.MapRazorPages();
 
 app.Run();
 
+// Run migrations
 void Migrate<T>() where T : DbContext
 {
     using (var scope = app.Services.CreateScope())

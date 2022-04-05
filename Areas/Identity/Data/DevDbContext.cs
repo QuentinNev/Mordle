@@ -7,6 +7,7 @@ namespace Mordle.Data;
 
 public class DevDbContext : IdentityDbContext<IdentityUser>
 {
+    // DbSet indicate to create a table with this type
     public virtual DbSet<Word> Words { get; set; }
     protected readonly IConfiguration _configuration;
 
@@ -16,11 +17,12 @@ public class DevDbContext : IdentityDbContext<IdentityUser>
         _configuration = configuration;
     }
 
+    // Seed database
     protected override void OnModelCreating(ModelBuilder builder)
     {
         if (File.Exists("words.json"))
         {
-
+            // Not implemented
         }
         else
         {
